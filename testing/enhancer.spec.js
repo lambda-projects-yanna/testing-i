@@ -59,6 +59,49 @@ describe('failure()', () => {
         // Assert 
         expect(actualDurability).toBe(expectedDurability);
     });
+
+    it('decreases durability by 10 and lowers level by 1 if enhancement > 16', () => {
+        const item = {
+            name: enhanceLevels[16],
+            type: '',
+            durability: 90,
+            enhancement: 17
+        };
+
+        const expectedName = enhanceLevels[item.enhancement-1];
+        const actualName = enhancer.failure(item)["name"];
+        const expectedDurability = item.durability - 10;
+        const actualDurability = enhancer.failure(item)["durability"];
+
+        expect(actualName).toBe(expectedName);
+        expect(actualDurability).toBe(expectedDurability);
+    });
+
+    it('does not change if enhancement <= 14 and dur < 25', () => {
+        const item = {
+            name: enhanceLevels[16],
+            type: '',
+            durability: 24,
+            enhancement: 14
+        };
+
+        const expected = item;
+        const actual = enhancer.failure(item)
+        expect(actual).toBe(expected);
+    });
+
+    it('does not change if enhancement > 16 and dur < 10', () => {
+        const item = {
+            name: enhanceLevels[16],
+            type: '',
+            durability: 9,
+            enhancement: 17
+        };
+
+        const expected = item;
+        const actual = enhancer.failure(item)
+        expect(actual).toBe(expected);
+    });
 });
 
 test('enhance item success', () => {

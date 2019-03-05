@@ -26,12 +26,18 @@ const enhanceLevels = {
   };
 
   failure = (item) => {
+      if (item.enhancement <= 14 && item.durability < 25) {
+          return item;
+      } else if (item.enhancement >= 15 && item.durability < 10) {
+          return item;
+      }
       if (item.enhancement >= 0 && item.enhancement <= 14) {
           item.durability -= 5;
-      } else if (item.enhancement > 14 && item.enhancement <= 16) {
+      } if (item.enhancement > 14) {
           item.durability -= 10;
-      } else if (item.enhancement > 16) {
+      } if (item.enhancement > 16) {
           item.enhancement -= 1;
+          item.name = enhanceLevels[item.enhancement];
       }
       return item;
   };
