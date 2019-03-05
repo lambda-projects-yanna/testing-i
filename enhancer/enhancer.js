@@ -28,8 +28,12 @@ const enhanceLevels = {
   failure = (item) => {
       if (item.enhancement >= 0 && item.enhancement <= 14) {
           item.durability -= 5;
+      } else if (item.enhancement > 14 && item.enhancement <= 16) {
+          item.durability -= 10;
+      } else if (item.enhancement > 16) {
+          item.enhancement -= 1;
       }
-      return item.durability;
+      return item;
   };
 
   success = (item) => {
